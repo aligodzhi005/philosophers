@@ -6,7 +6,7 @@
 /*   By: rvena <rvena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 19:58:06 by rvena             #+#    #+#             */
-/*   Updated: 2021/07/19 20:25:08 by rvena            ###   ########.fr       */
+/*   Updated: 2021/07/28 03:41:58 by rvena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ void	*ft_philo(void *i)
 		get_forks(num, prev);
 		g_ever.phil[num].lst_eat = gettime();
 		ft_write("is eating\n", (num + 1));
-		usleep(1000 * g_ever.time_to_eat);
+		usleep(1000 * (g_ever.time_to_eat - 1));
 		pthread_mutex_unlock(&g_ever.phil[num].mutex);
 		pthread_mutex_unlock(&g_ever.phil[prev].mutex);
 		g_ever.phil[num].num_eat++;
 		ft_write("is sleeping\n", (num + 1));
-		usleep(1000 * (g_ever.time_to_sleep - (gettime()
-					- g_ever.phil[num].lst_eat - g_ever.time_to_eat)));
+		usleep(1000 * (g_ever.time_to_sleep - 1));
+		// usleep(1000 * (g_ever.time_to_sleep - (gettime()
+		// 			- g_ever.phil[num].lst_eat - g_ever.time_to_eat)));
 		ft_write("is thinking\n", num + 1);
 	}
 	return (i);
@@ -51,6 +52,7 @@ static void	create_cycle(int j)
 		pthread_create(&(g_ever.phil[j].thread), NULL, ft_philo,
 			(void *)&g_ever.phil[j].num);
 		j += 2;
+		usleep(50);
 	}
 }
 
@@ -60,7 +62,6 @@ void	ft_pthread_create(void)
 
 	j = 0;
 	create_cycle(j);
-	usleep(1);
 	j = 1;
 	create_cycle(j);
 }

@@ -6,7 +6,7 @@
 /*   By: rvena <rvena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 19:51:15 by rvena             #+#    #+#             */
-/*   Updated: 2021/07/19 20:14:22 by rvena            ###   ########.fr       */
+/*   Updated: 2021/07/28 03:14:49 by rvena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	check_life_of_philo(void)
 {
 	int					j;
-	unsigned long long	time;
 	int					num;
 
 	num = g_ever.required_num_eat * g_ever.number_of_philo;
@@ -23,7 +22,6 @@ int	check_life_of_philo(void)
 	g_ever.number_of_eats = 0;
 	while (j < g_ever.number_of_philo)
 	{
-		time = gettime();
 		g_ever.number_of_eats += g_ever.phil[j].num_eat;
 		if (g_ever.number_of_eats == num)
 			return (1);
